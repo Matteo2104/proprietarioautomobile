@@ -30,6 +30,12 @@ public class Automobile {
 	private Proprietario proprietario;
 	
 	
+	public Automobile() {}
+	public Automobile(String marca, String modello) {
+		this.marca = marca;
+		this.modello = modello;
+	}
+
 	public Long getId() {
 		return id;
 	}

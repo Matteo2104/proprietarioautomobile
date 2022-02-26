@@ -3,6 +3,7 @@ package it.proprietarioautomobile.test;
 import java.util.List;
 
 import it.proprietarioautomobile.dao.EntityManagerUtil;
+import it.proprietarioautomobile.model.Automobile;
 import it.proprietarioautomobile.model.Proprietario;
 import it.proprietarioautomobile.service.MyServiceFactory;
 import it.proprietarioautomobile.service.automobile.AutomobileService;
@@ -15,6 +16,7 @@ public class TestProprietario {
 		
 		try {
 
+			// CRUD del ProprietarioDAO
 			testInsertProprietario(proprietarioService);
 			
 			testListProprietario(proprietarioService);
@@ -24,6 +26,10 @@ public class TestProprietario {
 			testGetProprietario(proprietarioService);
 			
 			testRemoveProprietario(proprietarioService);
+			
+			
+			// CRUD di AutomobileDAO
+			testInsertAutomobile(automobileService);
 
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -108,4 +114,32 @@ public class TestProprietario {
 
 		System.out.println("........ FINE testRemoveProprietario: successo ........");
 	}
+
+	
+	private static void testInsertAutomobile(AutomobileService automobileService) throws Exception {
+		System.out.println("........ INIZIO testInsertAutomobile ........");
+		
+		Automobile appenaInserita = new Automobile("bmw", "serie 3");
+		automobileService.inserisciNuova(appenaInserita);
+		if (appenaInserita.getId() == null)
+			throw new RuntimeException("non è stato possibile inserire un nuovo record");
+		
+		System.out.println("........ FINE testInsertAutomobile: successo ........");
+	}
+	
+	private static void testListAutomobile(AutomobileService automobileService) throws Exception {
+		System.out.println("........ INIZIO testListAutomobile ........");
+		
+		Automobile appenaInserito = new Automobile("bmw", "serie 3");
+		automobileService.inserisciNuova(appenaInserito);
+		if (appenaInserito.getId() == null)
+			throw new RuntimeException("non è stato possibile inserire un nuovo record");
+		
+		List<Automobile> listaDiAutomobili = automobileService.listAllAutomobili();
+		if (listaDiAutomobili.size() < 1) 
+			throw new RuntimeException("non è stato possibile stampare tutti i record");
+
+		System.out.println("........ FINE testListAutomobile: successo ........");
+	}
+
 }
