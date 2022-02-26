@@ -1,8 +1,10 @@
 package it.proprietarioautomobile.dao.automobile;
 
+import java.util.List;
+
 import it.proprietarioautomobile.dao.IBaseDAO;
 import it.proprietarioautomobile.model.Automobile;
 
 public interface AutomobileDAO extends IBaseDAO<Automobile> {
-	// per ora qui non c'è nulla
+	public List<Automobile> findAutomobiliByProprietarioCodFisIniziaCon(String pezzoDiCodiceFiscale) throws Exception;
 }

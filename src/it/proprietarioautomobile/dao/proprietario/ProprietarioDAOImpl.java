@@ -3,6 +3,7 @@ package it.proprietarioautomobile.dao.proprietario;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import it.proprietarioautomobile.model.Proprietario;
 
@@ -48,5 +49,15 @@ public class ProprietarioDAOImpl implements ProprietarioDAO {
 		}
 
 		entityManager.remove(entityManager.merge(proprietarioInstance));
+	}
+
+	
+	
+	
+	@Override
+	public int contaProprietariConAutomobiliImmatricolateDopo(int anno) throws Exception {
+		TypedQuery<Proprietario> query = entityManager.createQuery("select distinct count(Proprietario p) join fetch Automobile a where a.annoimmatricolazione > ?1", Proprietario.class);
+		query.setParameter(1, anno);
+		return query.getFirstResult();
 	}
 }

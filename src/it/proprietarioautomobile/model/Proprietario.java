@@ -19,14 +19,19 @@ public class Proprietario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long id;
+	
 	@Column(name = "nome")
 	private String nome;
+	
 	@Column(name = "cognome")
 	private String cognome;
+	
 	@Column(name = "codicefiscale")
 	private String codiceFiscale;
+	
 	@Column(name = "datadinascita")
 	private Date dataDiNascita;
+	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "proprietario")
 	private List<Automobile> automobili = new ArrayList<>();
 	
@@ -35,6 +40,11 @@ public class Proprietario {
 	public Proprietario(String nome, String cognome) {
 		this.nome = nome;
 		this.cognome = cognome;
+	}
+	public Proprietario(String nome, String cognome, String codiceFiscale) {
+		this.nome = nome;
+		this.cognome = cognome;
+		this.codiceFiscale = codiceFiscale;
 	}
 	
 	public Long getId() {

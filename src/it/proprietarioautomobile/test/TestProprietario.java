@@ -40,6 +40,12 @@ public class TestProprietario {
 			testRemoveAutomobile(automobileService);
 			
 			
+			
+			// funzioni aggiuntive
+			testListAllAutomobiliCodFis(automobileService, proprietarioService);
+			
+			
+			//testContaProprietariConAutomobiliImmatricolateDopo(proprietarioService, automobileService);
 
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -201,4 +207,80 @@ public class TestProprietario {
 		System.out.println("........ FINE testRemoveAutomobile: successo ........");
 	}
 
+	
+	private static void testContaProprietariConAutomobiliImmatricolateDopo(ProprietarioService proprietarioService, AutomobileService automobileService) throws Exception {
+		System.out.println("........ INIZIO testContaProprietariConAutomobiliImmatricolateDopo ........");
+		
+		// inserisco 2 proprietari
+		Proprietario appenaInserito1 = new Proprietario("matteo", "scarcella");
+		Proprietario appenaInserito2 = new Proprietario("antonio", "rossi");
+		
+		proprietarioService.inserisciNuovo(appenaInserito1);
+		proprietarioService.inserisciNuovo(appenaInserito2);
+	
+		// inserisco 3 automobili
+		Automobile appenaInserita1 = new Automobile("bmw", 2009, appenaInserito1);
+		Automobile appenaInserita2 = new Automobile("alfaromeo", 2005, appenaInserito2);
+		Automobile appenaInserita3 = new Automobile("bmw", 2002, appenaInserito2);
+		
+		automobileService.inserisciNuova(appenaInserita1);
+		if (appenaInserita1.getId() == null)
+			throw new RuntimeException("non è stato possibile inserire un nuovo record");
+		
+		automobileService.inserisciNuova(appenaInserita2);
+		if (appenaInserita2.getId() == null)
+			throw new RuntimeException("non è stato possibile inserire un nuovo record");
+		
+		automobileService.inserisciNuova(appenaInserita3);
+		if (appenaInserita3.getId() == null)
+			throw new RuntimeException("non è stato possibile inserire un nuovo record");
+		
+		
+		// eseguo il conteggio
+		int conteggio = proprietarioService.contaPropAutoImmDopo(2006);
+		if (conteggio < 1)
+			throw new RuntimeException("non è stato possibile eseguire il conteggio");
+		
+		
+		System.out.println("........ FINE testContaProprietariConAutomobiliImmatricolateDopo: successo ........");
+	}
+	
+	private static void testListAllAutomobiliCodFis(AutomobileService automobileService, ProprietarioService proprietarioService) throws Exception {
+		System.out.println("........ INIZIO testListAllAutomobiliCodFis ........");
+		
+		// inserisco 2 proprietari
+		Proprietario appenaInserito1 = new Proprietario("matteo", "scarcella", "matteocodicefiscale");
+		Proprietario appenaInserito2 = new Proprietario("antonio", "rossi", "antoniocodicefiscale");
+		Proprietario appenaInserito3 = new Proprietario("lorenzo", "verdi", "matteocodicefiscale");
+		
+		proprietarioService.inserisciNuovo(appenaInserito1);
+		proprietarioService.inserisciNuovo(appenaInserito2);
+		proprietarioService.inserisciNuovo(appenaInserito3);
+	
+		// inserisco 3 automobili
+		Automobile appenaInserita1 = new Automobile("bmw", 2009, appenaInserito1);
+		Automobile appenaInserita2 = new Automobile("alfaromeo", 2005, appenaInserito2);
+		Automobile appenaInserita3 = new Automobile("bmw", 2002, appenaInserito3);
+		
+		automobileService.inserisciNuova(appenaInserita1);
+		if (appenaInserita1.getId() == null)
+			throw new RuntimeException("non è stato possibile inserire un nuovo record");
+		
+		automobileService.inserisciNuova(appenaInserita2);
+		if (appenaInserita2.getId() == null)
+			throw new RuntimeException("non è stato possibile inserire un nuovo record");
+		
+		automobileService.inserisciNuova(appenaInserita3);
+		if (appenaInserita3.getId() == null)
+			throw new RuntimeException("non è stato possibile inserire un nuovo record");
+		
+		
+		// eseguo la query
+		List<Automobile> listaAutomobili = automobileService.listAllAutomobiliCodFis("matteo");
+		if (listaAutomobili.size() < 2)
+			throw new RuntimeException("non è stato possibile eseguire la query");
+		
+		
+		System.out.println("........ FINE testListAllAutomobiliCodFis: successo ........");
+	}
 }

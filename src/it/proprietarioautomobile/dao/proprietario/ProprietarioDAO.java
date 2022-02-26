@@ -4,5 +4,5 @@ import it.proprietarioautomobile.dao.IBaseDAO;
 import it.proprietarioautomobile.model.Proprietario;
 
 public interface ProprietarioDAO extends IBaseDAO<Proprietario> {
-	// per ora qui non c'è nulla
+	public int contaProprietariConAutomobiliImmatricolateDopo(int anno) throws Exception;
 }
