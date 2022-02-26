@@ -1,5 +1,7 @@
 package it.proprietarioautomobile.test;
 
+import java.util.List;
+
 import it.proprietarioautomobile.dao.EntityManagerUtil;
 import it.proprietarioautomobile.model.Proprietario;
 import it.proprietarioautomobile.service.MyServiceFactory;
@@ -14,6 +16,8 @@ public class TestProprietario {
 		try {
 
 			testInsertProprietario(proprietarioService);
+			
+			testListProprietario(proprietarioService);
 
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -33,5 +37,20 @@ public class TestProprietario {
 			throw new RuntimeException("non è stato possibile inserire un nuovo record");
 		
 		System.out.println("........ FINE testInsertProprietario: successo ........");
+	}
+	
+	private static void testListProprietario(ProprietarioService proprietarioService) throws Exception {
+		System.out.println("........ INIZIO testListProprietario ........");
+		
+		Proprietario appenaInserito = new Proprietario("matteo", "scarcella");
+		proprietarioService.inserisciNuovo(appenaInserito);
+		if (appenaInserito.getId() == null)
+			throw new RuntimeException("non è stato possibile inserire un nuovo record");
+		
+		List<Proprietario> listaDiProprietari = proprietarioService.listAllProprietari();
+		if (listaDiProprietari.size() < 1) 
+			throw new RuntimeException("non è stato possibile stampare tutti i record");
+
+		System.out.println("........ FINE testListProprietario: successo ........");
 	}
 }
