@@ -37,6 +37,8 @@ public class TestProprietario {
 			
 			testGetAutomobile(automobileService);
 			
+			testRemoveAutomobile(automobileService);
+			
 			
 
 		} catch (Throwable e) {
@@ -179,6 +181,24 @@ public class TestProprietario {
 			throw new RuntimeException("non è stato possibile caricare il record");
 
 		System.out.println("........ FINE testGetAutomobile: successo ........");
+	}
+	
+	private static void testRemoveAutomobile(AutomobileService automobileService) throws Exception {
+		System.out.println("........ INIZIO testRemoveAutomobile ........");
+		
+		Automobile appenaInserito = new Automobile("bmw", "serie 3");
+		automobileService.inserisciNuova(appenaInserito);
+		if (appenaInserito.getId() == null)
+			throw new RuntimeException("non è stato possibile inserire un nuovo record");
+		
+		List<Automobile> primaDellaRemove = automobileService.listAllAutomobili();
+		automobileService.rimuovi(appenaInserito);
+		List<Automobile> dopoLaRemove = automobileService.listAllAutomobili();
+		
+		if (primaDellaRemove.size() == dopoLaRemove.size())
+			throw new RuntimeException("non è stato possibile eliminare il record");
+
+		System.out.println("........ FINE testRemoveAutomobile: successo ........");
 	}
 
 }
