@@ -19,6 +19,8 @@ public class TestProprietario {
 			
 			testListProprietario(proprietarioService);
 
+			testUpdateProprietario(proprietarioService);
+
 		} catch (Throwable e) {
 			e.printStackTrace();
 		} finally {
@@ -52,5 +54,21 @@ public class TestProprietario {
 			throw new RuntimeException("non è stato possibile stampare tutti i record");
 
 		System.out.println("........ FINE testListProprietario: successo ........");
+	}
+	
+	private static void testUpdateProprietario(ProprietarioService proprietarioService) throws Exception {
+		System.out.println("........ INIZIO testUpdateProprietario ........");
+		
+		Proprietario appenaInserito = new Proprietario("matteo", "scarcella");
+		proprietarioService.inserisciNuovo(appenaInserito);
+		if (appenaInserito.getId() == null)
+			throw new RuntimeException("non è stato possibile inserire un nuovo record");
+		
+		appenaInserito.setCognome("rossi");
+		proprietarioService.aggiorna(appenaInserito);
+		if (!appenaInserito.getCognome().equals("rossi"))
+			throw new RuntimeException("non è stato possibile eseguire l'aggiornamento del record");
+
+		System.out.println("........ FINE testUpdateProprietario: successo ........");
 	}
 }
