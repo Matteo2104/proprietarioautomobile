@@ -35,6 +35,8 @@ public class TestProprietario {
 			
 			testUpdateAutomobile(automobileService);
 			
+			testGetAutomobile(automobileService);
+			
 			
 
 		} catch (Throwable e) {
@@ -162,6 +164,21 @@ public class TestProprietario {
 			throw new RuntimeException("non è stato possibile eseguire l'aggiornamento del record");
 
 		System.out.println("........ FINE testUpdateAutomobile: successo ........");
+	}
+	
+	private static void testGetAutomobile(AutomobileService automobileService) throws Exception {
+		System.out.println("........ INIZIO testGetAutomobile ........");
+		
+		Automobile appenaInserito = new Automobile("bmw", "serie 3");
+		automobileService.inserisciNuova(appenaInserito);
+		if (appenaInserito.getId() == null)
+			throw new RuntimeException("non è stato possibile inserire un nuovo record");
+		
+		Automobile trovatoConId = automobileService.caricaSingolaAutomobile(appenaInserito.getId());
+		if (trovatoConId.getId() != appenaInserito.getId())
+			throw new RuntimeException("non è stato possibile caricare il record");
+
+		System.out.println("........ FINE testGetAutomobile: successo ........");
 	}
 
 }
