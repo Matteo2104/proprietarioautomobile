@@ -33,6 +33,9 @@ public class TestProprietario {
 			
 			testListAutomobile(automobileService);
 			
+			testUpdateAutomobile(automobileService);
+			
+			
 
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -143,6 +146,22 @@ public class TestProprietario {
 			throw new RuntimeException("non è stato possibile stampare tutti i record");
 
 		System.out.println("........ FINE testListAutomobile: successo ........");
+	}
+	
+	private static void testUpdateAutomobile(AutomobileService automobileService) throws Exception {
+		System.out.println("........ INIZIO testUpdateAutomobile ........");
+		
+		Automobile appenaInserito = new Automobile("bmw", "serie 3");
+		automobileService.inserisciNuova(appenaInserito);
+		if (appenaInserito.getId() == null)
+			throw new RuntimeException("non è stato possibile inserire un nuovo record");
+		
+		appenaInserito.setModello("serie 4");
+		automobileService.aggiorna(appenaInserito);
+		if (!appenaInserito.getModello().equals("serie 4"))
+			throw new RuntimeException("non è stato possibile eseguire l'aggiornamento del record");
+
+		System.out.println("........ FINE testUpdateAutomobile: successo ........");
 	}
 
 }
