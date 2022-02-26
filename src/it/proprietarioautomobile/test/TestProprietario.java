@@ -30,6 +30,9 @@ public class TestProprietario {
 			
 			// CRUD di AutomobileDAO
 			testInsertAutomobile(automobileService);
+			
+			testListAutomobile(automobileService);
+			
 
 		} catch (Throwable e) {
 			e.printStackTrace();
