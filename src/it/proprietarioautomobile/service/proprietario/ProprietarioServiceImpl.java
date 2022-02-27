@@ -144,7 +144,7 @@ public class ProprietarioServiceImpl implements ProprietarioService {
 			proprietarioDAO.setEntityManager(entityManager);
 
 			// eseguo quello che realmente devo fare
-			return proprietarioDAO.contaProprietariConAutomobiliImmatricolateDopo(anno);
+			return (int)proprietarioDAO.contaProprietariConAutomobiliImmatricolateDopo(anno);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

@@ -55,9 +55,9 @@ public class ProprietarioDAOImpl implements ProprietarioDAO {
 	
 	
 	@Override
-	public int contaProprietariConAutomobiliImmatricolateDopo(int anno) throws Exception {
-		TypedQuery<Proprietario> query = entityManager.createQuery("select distinct count(Proprietario p) join fetch Automobile a where a.annoimmatricolazione > ?1", Proprietario.class);
+	public long contaProprietariConAutomobiliImmatricolateDopo(int anno) throws Exception {
+		TypedQuery<Long> query = entityManager.createQuery("select count(distinct p) from Proprietario p join p.automobili a where a.annoImmatricolazione > ?1", Long.class);
 		query.setParameter(1, anno);
-		return query.getFirstResult();
+		return query.getSingleResult();
 	}
 }

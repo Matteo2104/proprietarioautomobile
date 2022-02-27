@@ -44,8 +44,7 @@ public class TestProprietario {
 			// funzioni aggiuntive
 			testListAllAutomobiliCodFis(automobileService, proprietarioService);
 			
-			
-			//testContaProprietariConAutomobiliImmatricolateDopo(proprietarioService, automobileService);
+			testContaProprietariConAutomobiliImmatricolateDopo(proprietarioService, automobileService);
 
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -219,9 +218,9 @@ public class TestProprietario {
 		proprietarioService.inserisciNuovo(appenaInserito2);
 	
 		// inserisco 3 automobili
-		Automobile appenaInserita1 = new Automobile("bmw", 2009, appenaInserito1);
+		Automobile appenaInserita1 = new Automobile("bmw", 2002, appenaInserito1);
 		Automobile appenaInserita2 = new Automobile("alfaromeo", 2005, appenaInserito2);
-		Automobile appenaInserita3 = new Automobile("bmw", 2002, appenaInserito2);
+		Automobile appenaInserita3 = new Automobile("bmw", 2006, appenaInserito2);
 		
 		automobileService.inserisciNuova(appenaInserita1);
 		if (appenaInserita1.getId() == null)
@@ -237,9 +236,9 @@ public class TestProprietario {
 		
 		
 		// eseguo il conteggio
-		int conteggio = proprietarioService.contaPropAutoImmDopo(2006);
+		int conteggio = proprietarioService.contaPropAutoImmDopo(2004);
 		if (conteggio < 1)
-			throw new RuntimeException("non è stato possibile eseguire il conteggio");
+			throw new RuntimeException("non è stato possibile eseguire il conteggio, result = " + conteggio);
 		
 		
 		System.out.println("........ FINE testContaProprietariConAutomobiliImmatricolateDopo: successo ........");
